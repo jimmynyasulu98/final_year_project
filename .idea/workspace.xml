@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="83e2f258-e7b5-4463-847d-cced5ae8ce60" name="Default Changelist" comment="" />
+    <list default="true" id="83e2f258-e7b5-4463-847d-cced5ae8ce60" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -13,6 +16,9 @@
         <option value="Python Script" />
       </list>
     </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="24CT5gdeA0Xeabz9yUvcjHEpDIB" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -126,10 +132,15 @@
       <screen x="0" y="0" width="1280" height="920" />
     </state>
     <state x="77" y="63" key="SettingsEditor/0.0.1280.920@0.0.1280.920" timestamp="1643133610749" />
-    <state x="222" y="243" key="com.intellij.ide.util.TipDialog" timestamp="1643350511360">
-      <screen x="0" y="0" width="1280" height="920" />
+    <state x="298" y="235" key="com.intellij.ide.util.TipDialog" timestamp="1643686838526">
+      <screen x="0" y="0" width="1718" height="888" />
     </state>
     <state x="222" y="243" key="com.intellij.ide.util.TipDialog/0.0.1280.920@0.0.1280.920" timestamp="1643350511360" />
+    <state x="298" y="235" key="com.intellij.ide.util.TipDialog/0.0.1718.888@0.0.1718.888" timestamp="1643686838526" />
+    <state x="668" y="362" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1643686845488">
+      <screen x="0" y="0" width="1718" height="888" />
+    </state>
+    <state x="668" y="362" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1718.888@0.0.1718.888" timestamp="1643686845488" />
     <state x="239" y="201" width="672" height="678" key="search.everywhere.popup" timestamp="1643355284016">
       <screen x="0" y="0" width="1280" height="920" />
     </state>
