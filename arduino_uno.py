@@ -1,5 +1,6 @@
 # Import required libraries
 from pyfirmata import Arduino, util
+import bot_updates
 import time
 
 
@@ -32,6 +33,10 @@ tempPin = Sensor('d', '9', 'i').get_input_value(board)
 redPin = 12
 greenPin = 13
 
+# Defining bot details
+url = "https://api.telegram.org/bot5024428855:AAGcCjR-P83R9w2D107mes-dntXzuQyNvd0/sendMessage"
+chatID = "-625423112"
+
 
 # While loop to repeatedly execute
 def run_loop():
@@ -40,12 +45,12 @@ def run_loop():
         pirValue = pirPin.read()
 
         if pirValue is None:
-            time.sleep(1)
-            pass
+            time.sleep(2)
+            bot_updates.send_message(url, pirValue, chatID)
 
         elif pirValue is True:
             # Send notification to bot and update database
-            pass
+            bot_updates.send_message(url, pirValue, chatID)
         else:
             # Do nothing if the value is force
             pass
@@ -76,4 +81,9 @@ def run_loop():
             pass
 
         # Release the board
-    board.exit()
+
+
+board.exit()
+
+if __name__ == "__main__":
+    run_loop()

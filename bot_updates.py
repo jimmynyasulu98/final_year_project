@@ -29,6 +29,6 @@ def get_door_closed_detected():
 def send_message(link, message, chat_Id):
     params = {
         "chat_id": chat_Id,
-        "text": message
+        "text": str(message)
     }
     requests.get(link, data=params)
