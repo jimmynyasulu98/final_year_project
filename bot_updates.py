@@ -3,20 +3,32 @@
     occurred at home
 """
 import datetime
+import requests
 
 
 def get_motion_detected():
-    return "Alert! There is motion detected inside the house at {}".\
+    return "Alert! There is motion detected inside the house at {}". \
         format(datetime.datetime.now())
 
 
 def get_abnormal_temperature_detected():
-    return "Alert! An abnormal temperature detected in the house at {}".\
+    return "Alert! An abnormal temperature detected in the house at {}". \
         format(datetime.datetime.now())
 
 
 def get_door_open_detected():
-    return "Alert! The door opened at {}".\
+    return "Alert! The door opened at {}". \
         format(datetime.datetime.now())
 
 
+def get_door_closed_detected():
+    return "Alert! The door closed at {}". \
+        format(datetime.datetime.now())
+
+
+def send_message(link, message, chat_Id):
+    params = {
+        "chat_id": chat_Id,
+        "text": message
+    }
+    requests.get(link, data=params)

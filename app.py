@@ -22,6 +22,6 @@ def graph_plot():
 
 
 if __name__ == '__main__':
-    x = threading.Thread(target=None, args=(1,))
-    x.start()
+    updates = threading.Thread(target=None, args=(1,))
+    updates.start()
     app.run(debug=True, threaded=True)
