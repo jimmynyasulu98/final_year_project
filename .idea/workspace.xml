@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="83e2f258-e7b5-4463-847d-cced5ae8ce60" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/arduino_uno.py" beforeDir="false" afterPath="$PROJECT_DIR$/arduino_uno.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot_updates.py" beforeDir="false" afterPath="$PROJECT_DIR$/bot_updates.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
