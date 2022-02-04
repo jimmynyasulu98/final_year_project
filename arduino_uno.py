@@ -1,7 +1,12 @@
+""" a python file containing all arduino related task ranging from sensor
+ inputs to all corresponding outputs output """
+
 # Import required libraries
 from pyfirmata import Arduino, util
 import bot_updates
+import database
 import time
+from datetime import datetime
 
 
 # Class for all sensors to be used
@@ -25,52 +30,61 @@ it = util.Iterator(board)
 it.start()
 
 # Define pins for sensors
-pirPin = Sensor('d', '7', 'i').get_input_value(board)
+pir = Sensor('d', '7', 'i').get_input_value(board)
 doorPin = Sensor('d', '8', 'i').get_input_value(board)
 tempPin = Sensor('d', '9', 'i').get_input_value(board)
 
 # Output pins
-redPin = 12
-greenPin = 13
+# redPin = 12
+# greenPin = 13
 
 # Defining bot details
 url = "https://api.telegram.org/bot5024428855:AAGcCjR-P83R9w2D107mes-dntXzuQyNvd0/sendMessage"
 chatID = "-625423112"
 
+# create a database connection
+connection = database.connect()
+database.create_tables(connection)
+
 
 # While loop to repeatedly execute
 def run_loop():
     while True:
-        # Ignore case when receiving None value from pin
-        pirValue = pirPin.read()
 
+        pirValue = pir.read()
+        time.sleep(2)
+        # Ignore case when receiving None value from pin
         if pirValue is None:
             time.sleep(2)
-            bot_updates.send_message(url, pirValue, chatID)
-
+            # bot_updates.send_message(url, pirValue, chatID)
+            # bot_updates.send_message(url, bot_updates.get_motion_detected(), chatID)
         elif pirValue is True:
             # Send notification to bot and update database
-            bot_updates.send_message(url, pirValue, chatID)
+            bot_updates.send_message(url, bot_updates.get_motion_detected(), chatID)
+            database.insert_update(connection, 'motion_sensor', 'motion', datetime.now())
         else:
             # Do nothing if the value is force
-            pass
-
-        doorPinValue = pirPin.read()
-        if doorPinValue is None:
             time.sleep(1)
+            pass
+        # Ignore case when receiving None value from pin
+        doorPinValue = doorPin.read()
+        if doorPinValue is None:
             pass
 
         elif doorPinValue is True:
             # Send notification to bot and update database
-            pass
+            bot_updates.send_message(url, bot_updates.get_door_open_detected(), chatID)
+            database.insert_update(connection, 'door_sensor', 'opened', datetime.now())
+
         else:
             # Do nothing if the value is force
             pass
 
         # Check the value for temperature sensor
-        tempPinValue = pirPin.read()
+        tempPinValue = tempPin.read()
+
         if tempPinValue is None:
-            time.sleep(1)
+
             pass
 
         elif tempPinValue is True:
@@ -80,10 +94,9 @@ def run_loop():
             # Do nothing if the value is force
             pass
 
-        # Release the board
+    # Release the board
+    board.exit()
 
-
-board.exit()
 
 if __name__ == "__main__":
     run_loop()
