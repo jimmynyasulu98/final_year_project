@@ -21,6 +21,33 @@ class Sensor:
                                      (self.pin_category, self.pin_number, self.pin_type))
 
 
+# Buzzer function to be called if an incidence has happened
+def buzzer(pin, recurrence):
+    pattern = [0.8, 0.4]
+    flag = True
+    for i in range(recurrence):
+        for delay in pattern:
+            if flag is True:
+                board.digital[pin].write(1)
+                flag = False
+                time.sleep(1)
+            else:
+                board.digital[pin].write(0)
+                flag = True
+                time.sleep(1)
+    board.digital[pin].write(0)
+
+
+# return the temperature readings
+def get_temperature(analog_input):
+    if analog_input is None:
+        pass
+    else:
+        voltage_at_pin_in_millivolts = analog_input * (5000 / 1024)
+        temperature = abs((voltage_at_pin_in_millivolts - 300) / 10)
+        return "{:.2f}".format(temperature)
+
+
 # Associate port and board with pyFirmata
 port = 'COM1'
 board = Arduino(port)
@@ -32,7 +59,7 @@ it.start()
 # Define pins for sensors
 pir = Sensor('d', '7', 'i').get_input_value(board)
 doorPin = Sensor('d', '8', 'i').get_input_value(board)
-tempPin = Sensor('d', '9', 'i').get_input_value(board)
+tempPin = Sensor('a', '1', 'i').get_input_value(board)
 
 # Output pins
 # redPin = 12
@@ -64,7 +91,6 @@ def run_loop():
             database.insert_update(connection, 'motion_sensor', 'motion', datetime.now())
         else:
             # Do nothing if the value is force
-            time.sleep(1)
             pass
         # Ignore case when receiving None value from pin
         doorPinValue = doorPin.read()
@@ -84,15 +110,12 @@ def run_loop():
         tempPinValue = tempPin.read()
 
         if tempPinValue is None:
-
             pass
 
-        elif tempPinValue is True:
-            # Send notification to bot and update database
-            pass
         else:
             # Do nothing if the value is force
-            pass
+            time.sleep(2)
+            print(get_temperature(tempPinValue))
 
     # Release the board
     board.exit()
