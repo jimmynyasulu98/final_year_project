@@ -44,8 +44,7 @@ def get_temperature(analog_input):
         pass
     else:
         voltage_at_pin_in_millivolts = analog_input * (5000 / 1024)
-        temperature = abs((voltage_at_pin_in_millivolts - 300) / 10)
-        return "{:.2f}".format(temperature)
+        return voltage_at_pin_in_millivolts
 
 
 # Associate port and board with pyFirmata
@@ -59,7 +58,7 @@ it.start()
 # Define pins for sensors
 pir = Sensor('d', '7', 'i').get_input_value(board)
 doorPin = Sensor('d', '8', 'i').get_input_value(board)
-tempPin = Sensor('a', '1', 'i').get_input_value(board)
+framePin = Sensor('d', '9', 'i').get_input_value(board)
 
 # Output pins
 # redPin = 12
@@ -96,7 +95,6 @@ def run_loop():
         doorPinValue = doorPin.read()
         if doorPinValue is None:
             pass
-
         elif doorPinValue is True:
             # Send notification to bot and update database
             bot_updates.send_message(url, bot_updates.get_door_open_detected(), chatID)
@@ -107,15 +105,15 @@ def run_loop():
             pass
 
         # Check the value for temperature sensor
-        tempPinValue = tempPin.read()
-
-        if tempPinValue is None:
+        framePinValue = framePin.read()
+        # Skip if Value is None
+        if framePinValue is None:
             pass
-
+        elif framePinValue is True:
+            bot_updates.send_message(url, bot_updates.get_abnormal_temperature_detected(), chatID)
+            database.insert_update(connection, 'frame_sensor', 'detected', datetime.now())
         else:
-            # Do nothing if the value is force
-            time.sleep(2)
-            print(get_temperature(tempPinValue))
+            pass
 
     # Release the board
     board.exit()

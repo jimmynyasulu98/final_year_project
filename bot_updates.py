@@ -7,17 +7,18 @@ import requests
 
 
 def get_motion_detected():
-    return "Alert! There is motion detected inside the house at {}". \
+    return "\U000026A0 Alert! There is motion detected inside the house at {}". \
         format(datetime.datetime.now())
 
 
 def get_abnormal_temperature_detected():
-    return "Alert! An abnormal temperature detected in the house at {}". \
+    return "\U000026A0 Alert! An abnormal temperature detected in the house at {}. Possible fire flames" \
+           " occurred \U0001F525". \
         format(datetime.datetime.now())
 
 
 def get_door_open_detected():
-    return "Alert! The door opened at {}". \
+    return "\U000026A0 Alert! The Window has been opened at {}. Please find out if anyone is around at home". \
         format(datetime.datetime.now())
 
 
