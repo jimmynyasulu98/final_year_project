@@ -78,16 +78,17 @@ def run_loop():
     while True:
 
         pirValue = pir.read()
-        time.sleep(2)
         # Ignore case when receiving None value from pin
         if pirValue is None:
-            time.sleep(2)
-            # bot_updates.send_message(url, pirValue, chatID)
-            # bot_updates.send_message(url, bot_updates.get_motion_detected(), chatID)
+            pass
         elif pirValue is True:
             # Send notification to bot and update database
             bot_updates.send_message(url, bot_updates.get_motion_detected(), chatID)
+            bot_updates.capture_video()
+            buzzer(6, 10)
+            bot_updates.send_video('output1.avi', chatID)
             database.insert_update(connection, 'motion_sensor', 'motion', datetime.now())
+
         else:
             # Do nothing if the value is force
             pass
@@ -98,21 +99,13 @@ def run_loop():
         elif doorPinValue is True:
             # Send notification to bot and update database
             bot_updates.send_message(url, bot_updates.get_door_open_detected(), chatID)
+            bot_updates.capture_video()
+            buzzer(6, 10)
+            bot_updates.send_video('output1.avi', chatID)
             database.insert_update(connection, 'door_sensor', 'opened', datetime.now())
 
         else:
             # Do nothing if the value is force
-            pass
-
-        # Check the value for temperature sensor
-        framePinValue = framePin.read()
-        # Skip if Value is None
-        if framePinValue is None:
-            pass
-        elif framePinValue is True:
-            bot_updates.send_message(url, bot_updates.get_abnormal_temperature_detected(), chatID)
-            database.insert_update(connection, 'frame_sensor', 'detected', datetime.now())
-        else:
             pass
 
     # Release the board

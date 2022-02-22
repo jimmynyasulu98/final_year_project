@@ -5,7 +5,6 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/arduino_uno.py" beforeDir="false" afterPath="$PROJECT_DIR$/arduino_uno.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bot_updates.py" beforeDir="false" afterPath="$PROJECT_DIR$/bot_updates.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data.db" beforeDir="false" afterPath="$PROJECT_DIR$/data.db" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,7 +30,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Final" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunManager" selected="Python.arduino_uno">
@@ -184,6 +183,10 @@
       <screen x="0" y="0" width="1718" height="888" />
     </state>
     <state x="624" y="248" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1718.888@0.0.1718.888" timestamp="1643871366089" />
+    <state x="555" y="182" key="FileChooserDialogImpl" timestamp="1645062988504">
+      <screen x="0" y="0" width="1718" height="888" />
+    </state>
+    <state x="555" y="182" key="FileChooserDialogImpl/0.0.1718.888@0.0.1718.888" timestamp="1645062988504" />
     <state width="1028" height="197" key="GridCell.Tab.0.bottom" timestamp="1644458926059">
       <screen x="0" y="0" width="1718" height="888" />
     </state>
@@ -208,11 +211,11 @@
       <screen x="0" y="0" width="1280" height="920" />
     </state>
     <state x="77" y="63" key="SettingsEditor/0.0.1280.920@0.0.1280.920" timestamp="1643133610749" />
-    <state x="298" y="235" key="com.intellij.ide.util.TipDialog" timestamp="1644457861701">
+    <state x="298" y="235" key="com.intellij.ide.util.TipDialog" timestamp="1645062887361">
       <screen x="0" y="0" width="1718" height="888" />
     </state>
     <state x="222" y="243" key="com.intellij.ide.util.TipDialog/0.0.1280.920@0.0.1280.920" timestamp="1643350511360" />
-    <state x="298" y="235" key="com.intellij.ide.util.TipDialog/0.0.1718.888@0.0.1718.888" timestamp="1644457861701" />
+    <state x="298" y="235" key="com.intellij.ide.util.TipDialog/0.0.1718.888@0.0.1718.888" timestamp="1645062887361" />
     <state x="667" y="51" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1644450598935">
       <screen x="0" y="0" width="1718" height="888" />
     </state>
