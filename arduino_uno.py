@@ -4,7 +4,6 @@
 # Import required libraries
 from pyfirmata import Arduino, util
 import bot_updates
-import database
 import time
 from datetime import datetime
 
@@ -38,17 +37,8 @@ def buzzer(pin, recurrence):
     board.digital[pin].write(0)
 
 
-# return the temperature readings
-def get_temperature(analog_input):
-    if analog_input is None:
-        pass
-    else:
-        voltage_at_pin_in_millivolts = analog_input * (5000 / 1024)
-        return voltage_at_pin_in_millivolts
-
-
 # Associate port and board with pyFirmata
-port = 'COM1'
+port = 'COM3'
 board = Arduino(port)
 
 # Use iterator thread to avoid buffer overflow
@@ -56,21 +46,13 @@ it = util.Iterator(board)
 it.start()
 
 # Define pins for sensors
-pir = Sensor('d', '7', 'i').get_input_value(board)
-doorPin = Sensor('d', '8', 'i').get_input_value(board)
-framePin = Sensor('d', '9', 'i').get_input_value(board)
-
-# Output pins
-# redPin = 12
-# greenPin = 13
+pir = Sensor('d', '5', 'i').get_input_value(board)
+windowPin = Sensor('d', '4', 'i').get_input_value(board)
+# framePin = Sensor('d', '9', 'i').get_input_value(board)
 
 # Defining bot details
 url = "https://api.telegram.org/bot5024428855:AAGcCjR-P83R9w2D107mes-dntXzuQyNvd0/sendMessage"
 chatID = "-625423112"
-
-# create a database connection
-connection = database.connect()
-database.create_tables(connection)
 
 
 # While loop to repeatedly execute
@@ -79,30 +61,36 @@ def run_loop():
 
         pirValue = pir.read()
         # Ignore case when receiving None value from pin
+
         if pirValue is None:
             pass
         elif pirValue is True:
             # Send notification to bot and update database
             bot_updates.send_message(url, bot_updates.get_motion_detected(), chatID)
             bot_updates.capture_video()
-            buzzer(6, 10)
+            # buzzer(6, 10)
             bot_updates.send_video('output1.avi', chatID)
-            database.insert_update(connection, 'motion_sensor', 'motion', datetime.now())
 
         else:
             # Do nothing if the value is force
             pass
         # Ignore case when receiving None value from pin
-        doorPinValue = doorPin.read()
-        if doorPinValue is None:
+        windowPinValue = windowPin.read()
+        if windowPinValue is None:
             pass
-        elif doorPinValue is True:
-            # Send notification to bot and update database
-            bot_updates.send_message(url, bot_updates.get_door_open_detected(), chatID)
-            bot_updates.capture_video()
-            buzzer(6, 10)
-            bot_updates.send_video('output1.avi', chatID)
-            database.insert_update(connection, 'door_sensor', 'opened', datetime.now())
+        elif windowPinValue is True:
+            # Send notification to bot
+            print('okay')
+            labelsList = bot_updates.face_recognition()
+            print(labelsList)
+            if len(labelsList) < 3:
+                bot_updates.send_message(url, bot_updates.get_window_open_detected(), chatID)
+                bot_updates.capture_video()
+                bot_updates.send_video('output1.avi', chatID)
+            else:
+                pass
+            #buzzer(6, 10)
+
 
         else:
             # Do nothing if the value is force
