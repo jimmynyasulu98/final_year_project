@@ -1,6 +1,5 @@
 import numpy as np
 import cv2
-import pickle
 
 face_cascade = cv2.CascadeClassifier('haarcascade.xml')
 

@@ -22,7 +22,7 @@ class Sensor:
 
 # Buzzer function to be called if an incidence has happened
 def buzzer(pin, recurrence):
-    pattern = [0.8, 0.4]
+    pattern = [0.8, 0.4] # alternate delay values for on and off
     flag = True
     for i in range(recurrence):
         for delay in pattern:
@@ -68,7 +68,7 @@ def run_loop():
             # Send notification to bot and update database
             bot_updates.send_message(url, bot_updates.get_motion_detected(), chatID)
             bot_updates.capture_video()
-            # buzzer(6, 10)
+            buzzer(6, 10)
             bot_updates.send_video('output1.avi', chatID)
 
         else:
@@ -80,16 +80,14 @@ def run_loop():
             pass
         elif windowPinValue is True:
             # Send notification to bot
-            print('okay')
+			# Check if the person opening windows is a member of house using the trained model
             labelsList = bot_updates.face_recognition()
-            print(labelsList)
-            if len(labelsList) < 3:
+			#
+            if len(labelsList) < 3: #list should contain atleast three 85% confident for accuracy purpose 
                 bot_updates.send_message(url, bot_updates.get_window_open_detected(), chatID)
                 bot_updates.capture_video()
                 bot_updates.send_video('output1.avi', chatID)
-            else:
-                pass
-            #buzzer(6, 10)
+				buzzer(6, 10)
 
 
         else:

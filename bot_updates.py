@@ -32,9 +32,7 @@ def capture_video():
         # Display the resulting frame
         cv2.imshow('video', frame)
         out.write(frame)
-        # the 'q' button is set as the
-        # quitting button you may use any
-        # desired button of your choice
+        #Exit loop when specifies seconds reached
         if cv2.waitKey(1) & wait > 100:
             break
         wait += 1
@@ -44,6 +42,55 @@ def capture_video():
     out.release()
     # Destroy all the windows
     cv2.destroyAllWindows()
+	
+# Face recognition
+def face_recognition():
+    face_cascade = cv2.CascadeClassifier('haarcascade.xml')
+
+    recognizer = cv2.face.LBPHFaceRecognizer_create()
+    recognizer.read("faces_trained.yml")
+    labels = []
+    cap = cv2.VideoCapture(0)
+    wait = 0  # wait keyword to be used to terminate frame
+
+    while True:
+        # Capture frame-by-frame
+        ret, frame = cap.read()
+        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        faces = face_cascade.detectMultiScale(gray, scaleFactor=1.5, minNeighbors=5)
+
+        for (x, y, w, h) in faces:  # get image from region of interest
+            roi_gray = gray[y:y + h, x:x + w]
+            roi_color = frame[y:y + h, x:x + w]
+
+            result = recognizer.predict(roi_gray)
+
+            if result[1] < 500:
+                confidence = int(100 * (1 - (result[1]) / 300))
+                # display_string = str(confidence) + " % Confidence it is user"
+                # print(display_string)
+            if confidence > 85:
+                labels.append(confidence)
+
+            img_item = "7.png"
+            cv2.imwrite(img_item, roi_color)
+
+            color = (255, 0, 0)  # BGR 0-255
+            stroke = 2
+            end_cord_x = x + w
+            end_cord_y = y + h
+            cv2.rectangle(frame, (x, y), (end_cord_x, end_cord_y), color, stroke)
+
+        # Display the resulting frame and quit when reach specifies seconds
+        cv2.imshow('frame', frame)
+        if cv2.waitKey(1) & wait > 100:
+            break
+        wait += 1
+
+    # When everything done, release the capture
+    cap.release()
+    cv2.destroyAllWindows()
+    return labels		
 
 def send_video(file, chat_Id):
     try:
